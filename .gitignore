@@ -17,3 +17,5 @@ node_modules/karma-phantomjs-launcher
 node_modules/karma-sinon-chai
 
 node_modules/mocha
+
+twitKeys.js
