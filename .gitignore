@@ -12,7 +12,7 @@ node_modules/karma—chrome-launcher
 
 node_modules/karma-mocha
 
-node_modules/karma-phantom-js-launcher
+node_modules/karma-phantomjs-launcher
 
 node_modules/karma-sinon-chai
 
