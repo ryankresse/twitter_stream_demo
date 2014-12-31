@@ -17,6 +17,8 @@ module.exports = function (config) {
     files: [
         'node_modules/angular/angular.js',
         'node_modules/angular-mocks/angular-mocks.js',
+        'https://cdn.socket.io/socket.io-1.2.0.js',
+        'public/javascripts/app.js',
         'public/javascripts/*.js',
         'public/javascripts/**/*.js',
         'public/javascripts/lib/*.js',

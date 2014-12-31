@@ -6,22 +6,23 @@ describe('UT: testing change lat/longitude', function() {
     beforeEach(module('ngTouch'));
     beforeEach(module('app'));
    
-	 beforeEach(inject(function($rootScope, $controller, _ContactsDataService_, _$q_) {
+	 beforeEach(inject(function($rootScope, $controller, _LocationService_, _$q_) {
     	scope = $rootScope.$new();
     	$q = _$q_
     	ctrl = $controller('streamController', {$scope: scope});
     
-		/*ContactsDataService = _ContactsDataService_;
-		sinon.stub(ContactsDataService, 'addContact', function () {
+		LocationService = _LocationService_;
+		sinon.stub(LocationService, 'update', function (a, b, c, d) {
 			var deferred = $q.defer();
 			deferred.resolve('resolved');
 			return deferred.promise;
-		});*/
+		});
   	 }));
 
   	 describe('testing intial values', function() {
-	   it('the function should not be called and error should be false', function() { 
-	   		expect(true).to.equal(true);
+	   it('should call the function with the appropriate agruments', function() { 
+	   		ctrl.updateLocation(36, 22, 33, 44);
+	   		expect(LocationService.update.calledWith(36, 22, 33, 44)).to.equal(true);
 	   	});
 	 });
 
