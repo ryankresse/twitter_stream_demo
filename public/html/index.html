@@ -12,14 +12,41 @@
     <script type="text/javascript" src="/javascripts/lib/angular_touch.js"></script>
     <script type="text/javascript" src="/javascripts/lib/angular-route.js"></script>
     <script type="text/javascript" src="/javascripts/app.js"></script>
-     <script type="text/javascript" src="/javascripts/LocationService.js"></script>
+     <script type="text/javascript" src="/javascripts/StreamService.js"></script>
     <script type="text/javascript" src="/javascripts/streamController.js"></script>
   </head>
   <body ng-controller = "streamController as stream">
     <h1> TWEETS from {{stream.location}}</h1>
+    
+      <form id="" name = "locationform" class = "location-form cf" ng-submit = "stream.createStream(stream.long1, stream.lat1, stream.long2, stream.lat2, stream.searchTerms, stream.exclusiveSearch)" novalidate>
+        <div class = "form-group">
+          <label for="email" class="pull-left">Longitude 1</label>
+          <input type="" class = "form-control"  placeholder = "Email" name="email" ng-model = "stream.long1" required>
+        </div>
+        <div class = "form-group">
+          <label for="email" class="pull-left">Lat 1</label>
+          <input type="" class = "form-control"  placeholder = "Email" name="email" ng-model = "stream.lat1" required>
+        </div>
+         <div class = "form-group">
+          <label for="email" class="pull-left">Lat 1</label>
+          <input type="" class = "form-control"  placeholder = "Email" name="email" ng-model = "stream.long2" required>
+        </div>
+         <div class = "form-group">
+          <label for="email" class="pull-left">Lat 1</label>
+          <input type="" class = "form-control"  placeholder = "Email" name="email" ng-model = "stream.lat2" required>
+        </div>
+         <div class = "form-group">
+          <label for="email" class="pull-left">Lat 1</label>
+          <input type="" class = "form-control"  placeholder = "Email" name="email" ng-model = "stream.searchTerms" required>
+        </div>
+        <button class = "btn btn-primary col-xs-12">Sign up</button>
+      </form>
+      <button ng-click = 'stream.startStream(stream.long1, stream.lat1, stream.long2, stream.lat2, stream.searchTerms)' class = "btn btn-primary col-xs-12">Start Stream</button>
     <ul class = "tweets">
 
     </ul>
+
+
 
   </body>
 </html>

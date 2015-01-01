@@ -1,4 +1,4 @@
-describe('UT: testing change lat/longitude', function() {
+describe('UT: stream', function() {
     
 	var scope;
   	var ctrl;
@@ -6,25 +6,36 @@ describe('UT: testing change lat/longitude', function() {
     beforeEach(module('ngTouch'));
     beforeEach(module('app'));
    
-	 beforeEach(inject(function($rootScope, $controller, _LocationService_, _$q_) {
+	 beforeEach(inject(function($rootScope, $controller, _StreamService_, _$q_) {
     	scope = $rootScope.$new();
     	$q = _$q_
     	ctrl = $controller('streamController', {$scope: scope});
     
-		LocationService = _LocationService_;
-		sinon.stub(LocationService, 'update', function (a, b, c, d) {
+		StreamService = _StreamService_;
+		sinon.stub(StreamService, 'createStream', function (a, b, c, d) {
 			var deferred = $q.defer();
 			deferred.resolve('resolved');
 			return deferred.promise;
 		});
   	 }));
 
-  	 describe('testing intial values', function() {
-	   it('should call the function with the appropriate agruments', function() { 
-	   		ctrl.updateLocation(36, 22, 33, 44);
-	   		expect(LocationService.update.calledWith(36, 22, 33, 44)).to.equal(true);
+
+  	 describe('testing makeTermArray', function() {
+	   it('should split the string into an array of words', function() { 
+	   		var array = ctrl.makeTermArray('me oh and I');
+	   		expect(array).to.have.length(4);
+	   		expect(array[0]).to.equal('me');
 	   	});
 	 });
+
+  	 describe('testing updateLocation function call', function() {
+	   it('should call the function with the appropriate agruments', function() { 
+	   		ctrl.createStream(36, 22, 33, 44, 'me oh and I');
+	   		expect(StreamService.createStream.calledWith(36, 22, 33, 44, ['me', 'oh', 'and', 'I'])).to.equal(true);
+	   	});
+	 });
+
+	 
 
 	/*describe('testing intial values', function() {
 	   it('the function should not be called and error should be false', function() { 
