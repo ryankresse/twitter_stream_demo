@@ -7,10 +7,15 @@ angular
 	function StreamService ($http, $q) {
 		
 
-		this.createStream = function (long1, lat1, long2, lat2, searchTermArray, exclusiveSearch) {
-		  console.log('updating location');
+		this.createStream = function (coords, searchTermArray, exclusiveSearch, userNumber) {
+		  console.log('creating or updating stream');
 		  console.log(searchTermArray);
-		  return $http.post("/updateLocation", {location: [long1, lat1, long2, lat2], searchTermArray: searchTermArray, exclusiveSearch: exclusiveSearch});
+		  return $http.post("/createStream", {coords: coords, searchTermArray: searchTermArray, exclusiveSearch: exclusiveSearch, userNumber: userNumber});
+		};
+
+		this.stopStream = function (userNumber) {
+		  console.log('closing stream');
+		  return $http.post("/stopStream", {userNumber: userNumber, unload: true});
 		};
 	
 		

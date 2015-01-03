@@ -1,7 +1,11 @@
 describe('UT: updateLocation()', function() {
     var index = require('../index');
     var expect = require('chai').expect;
-	beforeEach(function(){
+    var app = require('express')();
+    var http = require('http').Server(app);
+    var io = require('socket.io')(http);
+	var sinon = require('sinon');
+    beforeEach(function(){
       
                 
         searchTermArray = ['me', 'you', 'how'];
@@ -12,8 +16,9 @@ describe('UT: updateLocation()', function() {
            inclusiveFailingText = "nope, I don't include the searchterms."
            inclusivePassingText = "no nope how";
 
+         
+            
 
-       
     });
 
 	/*describe('it should update the location with the proper arguments', function() {
@@ -56,6 +61,24 @@ describe('UT: updateLocation()', function() {
         
         });
      });
+
+      describe('testing emit tweet function', function() {
+       it('it should call the io emit function with the right arguments', function() { 
+         sinon.stub(io, 'emit');
+           var tweet = {
+            text: "Hello",
+            user: {
+                screen_name: "@rkresse"
+            }
+           };
+
+        index.emitTweet(tweet);
+        expect(io.emit.callCount).to.equal(1);
+        //expect(io.emit.calledWith('tweet', { text: 'Hello', user: '@rkresse' })).to.equal(true);
+        
+        });
+     });
+
 
     
 

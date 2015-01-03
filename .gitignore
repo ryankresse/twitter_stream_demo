@@ -18,4 +18,6 @@ node_modules/karma-sinon-chai
 
 node_modules/mocha
 
+node_modules/sinon
+
 twitKeys.js
