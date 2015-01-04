@@ -47,12 +47,57 @@ describe('UT: stream', function() {
 
 	 describe('testing truncate tweets', function() {
 	   it('should remove the last tweet', function() { 
-	   	expect(ctrl.truncateTweets(10)).to.equal(9);
+	   	expect(ctrl.truncateTweets(11)).to.equal(10);
 	   	expect(ctrl.truncateTweets(5)).to.equal(5);
 	   	});
 	 });
 
 
+
+	 describe('testing emptyView', function() {
+	   it('should remove the tweets, the search terms and set loading to true', function() { 
+	   	ctrl.tweets = [1, 2, 3, 4, 5];
+	   	ctrl.searchTermArray = ['w','o', 'r', 'd'];
+	   	ctrl.loading = false;
+	   	ctrl.emptyView();
+	   	expect(ctrl.tweets).to.have.length(0);
+	   	expect(ctrl.searchTermArray).to.have.length(0);
+	   	expect(ctrl.loading).to.equal(true);
+	   	});
+	 });
+
+	 describe('andOrOr', function() {
+	 	 it('should equal or', function() { 
+	   		expect(ctrl.andOrOr(false)).to.equal('or');
+	   	});
+	 	 it('should equal and', function() { 
+	   		expect(ctrl.andOrOr(true)).to.equal('and');
+	   	});
+	  
+	});
+
+
+	 describe('notOnlyWord', function() {
+	 	it('should return false', function() { 
+		   	ctrl.searchTermArray = ['hello'];
+		   	expect(ctrl.notOnlyWord()).to.equal(false);
+	   	});
+	   	it('should return true', function() { 
+		   	ctrl.searchTermArray = ['hello', 'bye'];
+		   	expect(ctrl.notOnlyWord()).to.equal(true);
+	   	});
+	});
+
+	 describe('notLastWord', function() {
+	 	it('should return false', function() { 
+		   	ctrl.searchTermArray = ['hello', 'bye', 'laterz'];
+		   	expect(ctrl.notLastWord(2)).to.equal(false);
+	   	});
+	   it('should return true', function() { 
+		   	ctrl.searchTermArray = ['hello', 'bye', 'laterz'];
+		   	expect(ctrl.notLastWord(1)).to.equal(true);
+	   	});
+	});
 
 	 
 

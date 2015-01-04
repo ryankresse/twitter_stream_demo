@@ -24,37 +24,37 @@
     
     <!--<div id = "map-canvas" style = "width: 500px; height: 500px;"></div>-->
     <map coords = "stream.coords" updatecoords='stream.updateCoords'> </map>
+      <div class = "search-terms">
+        <span ng-repeat-start = "term in stream.searchTermArray">
+          {{term}}
+        </span>
+        <span ng-repeat-end ng-show = 'stream.notOnlyWord() && stream.notLastWord($index)'>
+          {{stream.searchTermDivider}}
+        </span>
+         
+      </div>
       <ul class = "tweets cf">
       <li ng-repeat = "tweet in tweets = (stream.tweets)">
-        {{tweet}}
+        {{tweet.user}}: {{tweet.text}}
       </li>
     </ul>
       <form id="" name = "locationform" class = "location-form cf" ng-submit = "stream.createStream(stream.coords, stream.searchTerms, stream.exclusiveSearch, stream.userNumber)" novalidate>
-        <div class = "form-group">
-          <label for="email" class="pull-left">Longitude 1</label>
-          <input type="" class = "form-control"  placeholder = "Email" name="email" ng-model = "stream.long1" required>
-        </div>
-        <div class = "form-group">
-          <label for="email" class="pull-left">Lat 1</label>
-          <input type="" class = "form-control"  placeholder = "Email" name="email" ng-model = "stream.lat1" required>
-        </div>
          <div class = "form-group">
-          <label for="email" class="pull-left">Lat 1</label>
-          <input type="" class = "form-control"  placeholder = "Email" name="email" ng-model = "stream.long2" required>
-        </div>
-         <div class = "form-group">
-          <label for="email" class="pull-left">Lat 1</label>
-          <input type="" class = "form-control"  placeholder = "Email" name="email" ng-model = "stream.lat2" required>
-        </div>
-         <div class = "form-group">
-          <label for="email" class="pull-left">Lat 1</label>
+          <label for="email" class="pull-left">Search Terms</label>
           <input type="" class = "form-control"  placeholder = "Email" name="email" ng-model = "stream.searchTerms" required>
         </div>
-        <label for = "exclusiveSearch"> 
-          Exclusive Search
+        <div class = "radio-instructions">
+          Stream tweets that contain:
+        </div>
+        <label for = "all"> 
+          all of the search terms
         </label>
-        <input type = "checkbox" ng-model = "stream.exclusiveSearch" name = "exclusiveSearch" checked> 
-        <button class = "btn btn-primary col-xs-12">Sign up</button>
+        <input type = "radio" ng-model = "stream.exclusiveSearch" name = "all" ng-value = "true"> 
+        <label for = "any"> 
+          any of the search terms
+        </label>
+        <input type = "radio" ng-model = "stream.exclusiveSearch" name = "any" ng-value = "false"> 
+        <button class = "btn btn-primary col-xs-12">{{stream.buttonText}}</button>
       </form>
       
   

@@ -19,31 +19,62 @@ angular
 		this.coords = ['-74.367142', '40.559966', '-73.736801', '40.97081' ];
 		this.userNumberString;
 		this.tweets = [];
-
+		this.searchTermArray = [];
+		this.loading = true;
+		this.searchTermDivider = 'and';
+		this.buttonText = "Start Stream";
 		this.updateCoords = function (coords) {
 			console.log(coords);
 			that.coords = coords;
 			console.log(that.coords);
-		}
+		};
+		this.andOrOr = function (exclusiveSearch) {
+			var toReturn;
+			exclusiveSearch === true ? toReturn = 'and' : toReturn = 'or';
+			return toReturn;
+		};
+
+		this.notOnlyWord = function () {
+			var toReturn;
+			that.searchTermArray.length > 1 ? toReturn = true : toReturn = false;
+			return toReturn;
+		};
+		this.notLastWord = function (index) {
+			var toReturn;
+			index < that.searchTermArray.length - 1 ? toReturn = true : toReturn = false;
+			return toReturn;
+		};
+
+
 		this.makeTermArray = function (searchTerms) {
 			searchTerms = searchTerms.toLowerCase();
 			return searchTerms.split(' ');
-		}
+		};
+
+		this.emptyView = function () {
+			that.tweets = [];
+			that.searchTermArray = [];
+			that.loading = true;
+		};
+
 
 		this.createStream = function (coords, searchTerms, exclusiveSearch, userNumber) {
+			that.emptyView();
 			var searchTermArray = that.makeTermArray(searchTerms);
 			//socket.emit('create stream', {coords: coords, searchTermArray: searchTermArray, exclusiveSearch: exclusiveSearch, userNumber: userNumber});
 			console.log(coords);
 			
 			StreamService.createStream(coords, searchTermArray, exclusiveSearch, userNumber).then(function (err, response){
 				console.log(response);	
+				that.searchTermArray = searchTermArray;
+				that.searchTermDivider = that.andOrOr(that.exclusiveSearch);
+				that.buttonText === "Start Stream" ? that.buttonText = "Change Stream" : null;
 			});
 		};
 
 		this.addTweet = function (tweet) {
 			that.tweets.length = that.truncateTweets(that.tweets.length);
 			that.tweets.unshift(tweet);
-			console.log(that.tweets);
 		};
 
 		this.truncateTweets = function (length) {
