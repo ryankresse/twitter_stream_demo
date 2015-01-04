@@ -2,9 +2,9 @@
 'use strict';
 angular
 	.module('app')
-	.controller('streamController', ['$http', 'StreamService', streamController]);
+	.controller('streamController', ['$http', 'StreamService', '$scope', streamController]);
 	
-	function streamController ($http, StreamService) {
+	function streamController ($http, StreamService, $scope) {
 
 		var that = this;
 		
@@ -18,6 +18,7 @@ angular
 		this.userNumber;
 		this.coords = ['-74.367142', '40.559966', '-73.736801', '40.97081' ];
 		this.userNumberString;
+		this.tweets = [];
 
 		this.updateCoords = function (coords) {
 			console.log(coords);
@@ -33,13 +34,24 @@ angular
 			var searchTermArray = that.makeTermArray(searchTerms);
 			//socket.emit('create stream', {coords: coords, searchTermArray: searchTermArray, exclusiveSearch: exclusiveSearch, userNumber: userNumber});
 			console.log(coords);
-			var searchTermArray = that.makeTermArray(searchTerms);
+			
 			StreamService.createStream(coords, searchTermArray, exclusiveSearch, userNumber).then(function (err, response){
 				console.log(response);	
 			});
 		};
 
+		this.addTweet = function (tweet) {
+			that.tweets.length = that.truncateTweets(that.tweets.length);
+			that.tweets.unshift(tweet);
+			console.log(that.tweets);
+		};
 
+		this.truncateTweets = function (length) {
+			if (length === 11) {
+				return 10;
+			}
+			return length;
+		};
 
 
 
@@ -51,16 +63,18 @@ angular
 			that.userNumber = randomNum;
 			that.userNumberString = String(randomNum);
 			return randomNum;
-		}
+		};
+
+
+
 
 		var socket = io(),
 	          	  user;
 	    socket.emit('join', {userNumber: that.createUserNumber()});
+		
 		socket.on(that.userNumberString, function(data){
 	        console.log(data);
-	        console.log(1);
-	        //var tweet = data.user + ": " + data.text;
-	        //$('.tweets').append($('<li>').text(tweet));
+	        $scope.$apply(that.addTweet(data));
 	      });
 		
 		window.addEventListener('beforeunload', function (e) {

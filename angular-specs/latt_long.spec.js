@@ -17,6 +17,9 @@ describe('UT: stream', function() {
 			deferred.resolve('resolved');
 			return deferred.promise;
 		});
+  	 	ctrl.tweets = [];
+
+
   	 }));
 
 
@@ -30,10 +33,26 @@ describe('UT: stream', function() {
 
   	 describe('testing updateLocation function call', function() {
 	   it('should call the function with the appropriate agruments', function() { 
-	   		ctrl.createStream(36, 22, 33, 44, 'me oh and I');
-	   		expect(StreamService.createStream.calledWith(36, 22, 33, 44, ['me', 'oh', 'and', 'I'])).to.equal(true);
+	   		ctrl.createStream(['36', '22', '33', '44'], 'me oh and I', true, 2222);
+	   		expect(StreamService.createStream.calledWith(['36', '22', '33', '44'], ['me', 'oh', 'and', 'I'], true, 2222)).to.equal(true);
 	   	});
 	 });
+
+	  describe('testing add tweet function', function() {
+	   it('should add the tweet', function() { 
+	   	ctrl.addTweet('tweet');
+	   	expect(ctrl.tweets).to.have.length(1);
+	   	});
+	 });
+
+	 describe('testing truncate tweets', function() {
+	   it('should remove the last tweet', function() { 
+	   	expect(ctrl.truncateTweets(10)).to.equal(9);
+	   	expect(ctrl.truncateTweets(5)).to.equal(5);
+	   	});
+	 });
+
+
 
 	 
 

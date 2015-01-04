@@ -24,7 +24,11 @@
     
     <!--<div id = "map-canvas" style = "width: 500px; height: 500px;"></div>-->
     <map coords = "stream.coords" updatecoords='stream.updateCoords'> </map>
-
+      <ul class = "tweets cf">
+      <li ng-repeat = "tweet in tweets = (stream.tweets)">
+        {{tweet}}
+      </li>
+    </ul>
       <form id="" name = "locationform" class = "location-form cf" ng-submit = "stream.createStream(stream.coords, stream.searchTerms, stream.exclusiveSearch, stream.userNumber)" novalidate>
         <div class = "form-group">
           <label for="email" class="pull-left">Longitude 1</label>
@@ -53,9 +57,7 @@
         <button class = "btn btn-primary col-xs-12">Sign up</button>
       </form>
       
-    <ul class = "tweets">
-
-    </ul>
+  
 
 
 
