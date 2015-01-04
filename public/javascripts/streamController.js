@@ -23,6 +23,8 @@ angular
 		this.loading = true;
 		this.searchTermDivider = 'and';
 		this.buttonText = "Start Stream";
+
+		
 		this.updateCoords = function (coords) {
 			console.log(coords);
 			that.coords = coords;
