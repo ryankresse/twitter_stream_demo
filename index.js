@@ -39,7 +39,7 @@ app.post('/stopStream', stopStream);
 
 
 
-  var keys = require('./twitKeys');
+  var keys = require('./lib/twitKeys');
   var Twit = require('twit');
   var T = new Twit(keys);
   //var stream = T.stream('statuses/filter', { locations: location});
