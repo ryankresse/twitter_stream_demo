@@ -21,3 +21,7 @@ node_modules/mocha
 node_modules/sinon
 
 lib/twitKeys.js
+
+node_modules/grunt-contrib-sass
+
+node_modules/grunt-contrib-watch

@@ -25,7 +25,13 @@ angular
 		this.buttonText = "Start Stream";
 		this.noSearchTermError = false;
 		this.serverError = false;
-		
+		this.toggleImage = 'hide.png';
+		this.showInstructions = true;
+
+		this.toggleInstructions = function () {
+			that.showInstructions = !that.showInstructions;
+			that.toggleImage ==='hide.png' ? that.toggleImage = 'show.png' : that.toggleImage = 'hide.png';
+		};
 		this.updateCoords = function (coords) {
 			console.log(coords);
 			that.coords = coords;

@@ -13,7 +13,7 @@
           link: function(scope, $element, attrs) {
             function initialize() { 
               var mapOptions = {
-                center: { lat: 40.7127 , lng: -74.0059 },
+                center: { lat: 40.7127 , lng: -72.0059 },
                 zoom: 8
               };
               var map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -53,7 +53,7 @@
 		      
         },
 
-        template: "<div id = 'map-canvas' style = 'width: 500px; height: 500px;'></div>"
+        template: "<div id = 'map-canvas' class = 'map-canvas'></div>"
          
        };
 	});

@@ -1,7 +1,7 @@
 <!doctype html>
 <html ng-app="app">
   <head>
-    <title>Socket.IO chat</title>
+    <title>Twitter Stream</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,11 +20,29 @@
     <script type="text/javascript" src="/javascripts/streamController.js"></script>
     <script type="text/javascript" src="/javascripts/map.Directive.js"></script>
   </head>
-  <body ng-controller = "streamController as stream">
-    <h1> TWEETS from {{stream.location}}</h1>
-    
+  <body ng-controller = "streamController as stream">    
     <!--<div id = "map-canvas" style = "width: 500px; height: 500px;"></div>-->
     <map coords = "stream.coords" updatecoords='stream.updateCoords'> </map>
+      <div class = "instructions-toggle" ng-click = "stream.toggleInstructions()">
+        <img ng-src = "../images/{{stream.toggleImage}}" alt = "close">
+      </div>
+      <div class = "instructions-overlay cf" ng-show = "stream.showInstructions">
+        <h1>
+          Tweet Streamer
+        </h1>
+        <p class = "lead">
+          Stream tweets by location and the words they contain.
+        </p>
+        <ol>
+          <li>
+            Move the box to change where the tweets come from.
+          </li>
+          <li>
+            Enter the terms the tweets should include, seperated by spaces.
+          </li>
+        </ol>
+      </div>
+      <div class = "tweets-overlay cf">
       <div class = "search-terms">
         <span ng-repeat-start = "term in stream.searchTermArray">
           {{term}}
@@ -38,6 +56,7 @@
       <form id="" name = "locationform" class = "location-form cf" ng-submit = "stream.createStream(stream.coords, stream.searchTerms, stream.exclusiveSearch, stream.userNumber)" novalidate>
          <div class = "form-group">
           <label for="email" class="pull-left">Search Terms</label>
+
           <input type="" class = "form-control"  placeholder = "Email" name="email" ng-model = "stream.searchTerms" >
         </div>
         <div class = "radio-instructions">
@@ -60,7 +79,7 @@
         {{tweet.user}}: {{tweet.text}}
       </li>
     </ul>
-
+  </div><!--overlay-->
 
 
   </body>
