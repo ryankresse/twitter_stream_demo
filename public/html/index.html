@@ -16,6 +16,7 @@
     </script>
     <script type="text/javascript" src="/javascripts/app.js"></script>
      <script type="text/javascript" src="/javascripts/StreamService.js"></script>
+     <script type="text/javascript" src="/javascripts/UnLoadService.js"></script>
     <script type="text/javascript" src="/javascripts/streamController.js"></script>
     <script type="text/javascript" src="/javascripts/map.Directive.js"></script>
   </head>
@@ -33,15 +34,11 @@
         </span>
          
       </div>
-      <ul class = "tweets cf">
-      <li ng-repeat = "tweet in tweets = (stream.tweets)">
-        {{tweet.user}}: {{tweet.text}}
-      </li>
-    </ul>
+     
       <form id="" name = "locationform" class = "location-form cf" ng-submit = "stream.createStream(stream.coords, stream.searchTerms, stream.exclusiveSearch, stream.userNumber)" novalidate>
          <div class = "form-group">
           <label for="email" class="pull-left">Search Terms</label>
-          <input type="" class = "form-control"  placeholder = "Email" name="email" ng-model = "stream.searchTerms" required>
+          <input type="" class = "form-control"  placeholder = "Email" name="email" ng-model = "stream.searchTerms" >
         </div>
         <div class = "radio-instructions">
           Stream tweets that contain:
@@ -56,8 +53,13 @@
         <input type = "radio" ng-model = "stream.exclusiveSearch" name = "any" ng-value = "false"> 
         <button class = "btn btn-primary col-xs-12">{{stream.buttonText}}</button>
       </form>
-      
-  
+    <div class = "error" ng-show = "stream.noSearchTermError"> Sorry, but you have to track at least one word. House rules.</div>
+    <div class = "error" ng-show = "stream.serverError">Our bad, something broke. Mind refreshing and trying again?</div>
+     <ul class = "tweets cf">
+      <li ng-repeat = "tweet in tweets = (stream.tweets)">
+        {{tweet.user}}: {{tweet.text}}
+      </li>
+    </ul>
 
 
 
