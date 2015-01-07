@@ -14,13 +14,20 @@ module.exports = function(grunt) {
                 }
             }
         },
- 
+        autoprefixer: {
+            dist: {
+                files: {
+                    'public/stylesheets/style.css': 'public/stylesheets/style.css'  
+                }
+            }
+        },
         watch: {
             scripts: {
                 files: [
                     'public/stylesheets/scss/*.scss'
+
                 ],
-                tasks: ['sass']
+                tasks: ['sass', 'autoprefixer']
             }
         }
  
@@ -29,7 +36,7 @@ module.exports = function(grunt) {
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
- 
+    grunt.loadNpmTasks('grunt-autoprefixer');
     // Default task.
     grunt.registerTask('default', ['sass']);
  

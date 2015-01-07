@@ -27,6 +27,7 @@ angular
 		this.serverError = false;
 		this.toggleImage = 'hide.png';
 		this.showInstructions = true;
+		this.waiting = false;
 
 		this.toggleInstructions = function () {
 			that.showInstructions = !that.showInstructions;
@@ -77,6 +78,7 @@ angular
 			that.searchTermArray = searchTermArray;
 			that.searchTermDivider = that.andOrOr(that.exclusiveSearch);
 			that.buttonText === "Start Stream" ? that.buttonText = "Change Stream" : null;
+			that.waiting = true;
 		};
 
 		this.streamFailed = function () {
@@ -93,7 +95,6 @@ angular
 
 			var searchTermArray = that.makeTermArray(searchTerms);
 			console.log(coords);
-			
 			StreamService.createStream(coords, searchTermArray, exclusiveSearch, userNumber).then(function (response){	
 				response.data === 'stream created' ? that.streamSucceeded(searchTermArray) : that.streamFailed();
 
@@ -103,12 +104,13 @@ angular
 		this.addTweet = function (tweet) {
 			that.tweets.length = that.truncateTweets(that.tweets.length);
 			that.tweets.unshift(tweet);
+			that.waiting = false;
 		};
 
 		this.truncateTweets = function (length) {
-			if (length === 11) {
-				return 10;
-			}
+			/*if (length === 6) {
+				return 5;
+			}*/
 			return length;
 		};
 
