@@ -7,18 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="/javascripts/lib/jquery-2.1.1.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?sensor=SET_TO_TRUE_OR_FALSE">
+    </script>
+    
+  
+    <script type="text/javascript" src="/javascripts/main.min.js"></script>
+    
+
+<!--
     <script type="text/javascript" src="/javascripts/lib/angular.js"></script>
     <script type="text/javascript" src="/javascripts/lib/angular-animate.js"></script>
     <script type="text/javascript" src="/javascripts/lib/angular_touch.js"></script>
     <script type="text/javascript" src="/javascripts/lib/angular-route.js"></script>
-     <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?sensor=SET_TO_TRUE_OR_FALSE">
-    </script>
     <script type="text/javascript" src="/javascripts/app.js"></script>
-     <script type="text/javascript" src="/javascripts/StreamService.js"></script>
+    <script type="text/javascript" src="/javascripts/StreamService.js"></script>
      <script type="text/javascript" src="/javascripts/UnLoadService.js"></script>
     <script type="text/javascript" src="/javascripts/streamController.js"></script>
-    <script type="text/javascript" src="/javascripts/map.Directive.js"></script>
+    <script type="text/javascript" src="/javascripts/map.Directive.js"></script>-->
   </head>
   <body ng-controller = "streamController as stream">    
     <!--<div id = "map-canvas" style = "width: 500px; height: 500px;"></div>-->
@@ -69,14 +75,14 @@
       <div class = "error" ng-show = "stream.noSearchTermError"> Sorry, but you have to track at least one word. House rules...</div>
       <div class = "error" ng-show = "stream.serverError">Something broke.. Mind refreshing and trying again?</div>
       <div class = "waiting" ng-show = "stream.waiting">Waiting for tweets...</div>
-          <div class = "tweet" ng-repeat = "tweet in tweets = (stream.tweets)">
-            <span class = "twitter-handle">
-              @{{tweet.user}}:
-            </span>
-            <span class = "tweet-text">
-              {{tweet.text}}        
-            </span>
-          </div>
+        <div class = "tweet" ng-repeat = "tweet in tweets = (stream.tweets)">
+          <span class = "twitter-handle">
+            @{{tweet.user}}:
+          </span>
+          <span class = "tweet-text">
+            {{tweet.text}}        
+          </span>
+        </div>
     </div>
   </div><!--overlay-->
   </body>

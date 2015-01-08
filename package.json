@@ -19,6 +19,7 @@
     "grunt-contrib-sass": "*",
     "grunt-contrib-uglify": "^0.6.0",
     "grunt-contrib-watch": "*",
+    "grunt-usemin": "^3.0.0",
     "karma": "^0.12.28",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^0.1.7",
