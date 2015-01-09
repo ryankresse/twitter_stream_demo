@@ -35,17 +35,6 @@ module.exports = function(grunt) {
       options: {
         separator: '; \n',
       },
-     /* dist: {
-        src: ['public/javascripts/lib/angular.min.js', 'public/javascripts/lib/*.js'],
-        dest: 'public/build/libraries.js',
-      },
-      files: {
-        src: ['public/javascripts/indexpage/homepage_mod.js', 'public/javascripts/indexpage/login/login_toggle_anim.js', 'public/javascripts/indexpage/login/attemptlogin.service.js',
-        'public/javascripts/indexpage/createaccount/createaccount.service.js',
-        'public/javascripts/indexpage/login/angular_login.js',
-        'public/javascripts/indexpage/createaccount/angular_create_account.js' ],
-        dest: 'public/build/indexpag.js',
-      },*/
       files: {
         src: ['public/javascripts/lib/angular.min.js', 'public/javascripts/lib/*.js',
         'public/javascripts/app.js',  'public/javascripts/StreamService.js', 'public/javascripts/UnLoadService.js', 'public/javascripts/streamController.js', 'public/javascripts/map.Directive.js'],
