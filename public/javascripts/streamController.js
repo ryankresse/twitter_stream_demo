@@ -2,9 +2,9 @@
 'use strict';
 angular
 	.module('app')
-	.controller('streamController', ['$http', 'StreamService', 'UnloadService', '$scope', streamController]);
+	.controller('streamController', ['$scope', streamController]);
 	
-	function streamController ($http, StreamService, UnloadService, $scope) {
+	function streamController ($scope) {
 
 		var that = this;
 	
@@ -21,6 +21,7 @@ angular
 		this.toggleImage = 'hide.png';
 		this.showInstructions = true;
 		this.waiting = false;
+		this.disconnect = false;
 
 		//hids and shows the title/instruction box and swaps the image the user clicks on
 		this.toggleInstructions = function () {
@@ -31,7 +32,6 @@ angular
 		//when the user moves the location box, this stores the new coordinates in an array
 		this.updateCoords = function (coords) {
 			that.coords = coords;
-			console.log(that.coords);
 		};
 
 		//makes an array of the user's search terms, which will get sent to the server
@@ -74,50 +74,44 @@ angular
 				that.noSearchTermError = true;
 				return;
 			}
-
-
 			var searchTermArray = that.makeTermArray(searchTerms);
-			
-			// sending our request to the server to open the stream
-			StreamService.createStream(coords, searchTermArray, exclusiveSearch, userNumber).then(function (response){	
-				response.data === 'stream created' ? that.streamSucceeded(searchTermArray) : that.streamFailed();
-
-			});
+			var data = {};
+			data.coords = coords;
+			data.searchTermArray = searchTermArray;
+			data.exclusiveSearch = exclusiveSearch;
+			data.userNumber = userNumber;
+			socket.emit('createStream', data);
+			that.streamSucceeded(searchTermArray); 
 		};
 
 		// when we get a tweet, we add it to the view and hide the 'waiting' message
 		this.addTweet = function (tweet) {
-			that.tweets.unshift(tweet);
+			$scope.$apply(function (){
+				that.tweets.unshift(tweet);
+				if (that.waiting) {that.waiting = false;}
+			});
+		};
+
+
+		//connect to socket.io
+		var socket = io.connect();
+
+
+	  	socket.on('incoming_tweet', function (data) {
+			that.addTweet(data);
+		});
+
+		socket.on('disconnect', function () {
+			that.disconnect = true;
+		});
+
+		socket.on('error', function (error) {
+			console.log(error);
 			that.waiting = false;
-		};
-
-		// creates a random number that we'll send to the server to create a unique stream for a specific socket. This number also serves as the 'event' that signals an incoming tweet.
-		this.createUserNumber = function () {
-			var randomNum =  Math.random() * (100000000000 - 1) + 1;
-			console.log(randomNum);
-			that.userNumber = randomNum;
-			that.userNumberString = String(randomNum);
-			return randomNum;
-		};
-
-
-
-		//socket io connection
-		var socket = io(),
-	          	  user;
-
-	    // create our random user number
-	    socket.emit('join', {userNumber: that.createUserNumber()});
+			that.serverError = true;
+		});
 		
-		// each socket listens for an event that matches its randomly created user number. When it gets one, it adds the tweets.
-		socket.on(that.userNumberString, function(data){
-	        console.log(data);
-	        $scope.$apply(that.addTweet(data));
-	      });
 		
-		// we need to tell the server to stop the stream when the user closes the page, refreshes etc.
-		UnloadService.unload(that.userNumber);
-	
 	}
 
 

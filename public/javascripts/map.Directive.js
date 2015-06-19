@@ -39,11 +39,17 @@
             
             //when the box's position changes, update the coordinates in our controller
             function getNewPosition (event) {
-              var neLong = String(rectangle.getBounds().getNorthEast().D);
-              var neLat = String(rectangle.getBounds().getNorthEast().k);
-              var swLong = String(rectangle.getBounds().getSouthWest().D);
-              var swLat = String(rectangle.getBounds().getSouthWest().k);
+              
+              var neCorner = rectangle.getBounds().getNorthEast();
+                  swCorner = rectangle.getBounds().getSouthWest();
+              
+              var neLat = String(neCorner.A),
+                  neLong = String(neCorner.F),
+                  swLat = String(swCorner.A),
+                  swLong = String(swCorner.F);
+                            
               var coords = [swLong, swLat, neLong, neLat];
+               console.log(coords);
               scope.updatecoords(coords);
             }
 

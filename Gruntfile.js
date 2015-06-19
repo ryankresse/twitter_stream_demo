@@ -25,10 +25,11 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: [
-                    'public/stylesheets/scss/*.scss'
+                    'public/javascripts/*.js',
+                    '!public/javascripts/main.js'
 
                 ],
-                tasks: ['sass', 'autoprefixer']
+                tasks: ['concat']
             }
         },
         concat: {
@@ -63,6 +64,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
      grunt.loadNpmTasks('grunt-usemin');
     // Default task.
-    grunt.registerTask('default', ['sass', 'autoprefixer','concat', 'uglify',]);
+    grunt.registerTask('default', ['sass', 'autoprefixer','concat']);
  
 };
